@@ -52,6 +52,7 @@ src/
 - Ficheros en kebab-case. Rutas en `*.routes.ts`, una función `xxxRoutes(deps)` que devuelve un `Router`.
 - La validación de entrada HTTP se hace con zod en la ruta (`schema.parse(req.body)`). Las invariantes de negocio van en la entidad.
 - Express 5 propaga los errores de handlers async: no hace falta `try/catch` ni `next(err)`.
+- Swagger: `zod-openapi` + `swagger-ui-express` en `/docs` (`shared/infrastructure/http/openapi.ts`). Cada módulo exporta sus paths en `infrastructure/http/*.openapi.ts`. Si cambias una ruta, actualiza su documentación. Las rutas protegidas llevan `security: bearerAuth`.
 - Usuario autenticado: protege la ruta con `requireAuth` y lee el id con `getAuthenticatedUserId(res)` (`shared/infrastructure/http/auth-context.ts`).
 - Las variables de entorno se leen solo desde `shared/infrastructure/config/env.ts` (validado con zod). Si añades una, actualiza también `.env.example`.
 - Lint con ESLint (`eslint.config.js`, typescript-eslint en modo type-checked) y formato con Prettier (`.prettierrc.json`: comillas simples, sin punto y coma, ancho 100). ESLint no comprueba el estilo: de eso se encarga Prettier.
@@ -61,9 +62,9 @@ src/
 
 1. `src/modules/<x>/domain`: entidad y puerto `XRepository`.
 2. `src/modules/<x>/application`: casos de uso y DTO.
-3. `src/modules/<x>/infrastructure`: `PrismaXRepository` y `x.routes.ts`.
+3. `src/modules/<x>/infrastructure`: `PrismaXRepository`, `x.routes.ts` y `x.openapi.ts` (paths OpenAPI relativos al prefijo, que reutilizan los schemas zod exportados de la ruta).
 4. Modelo en `prisma/schema.prisma` y `pnpm db:migrate`.
-5. Cablear en `app.ts`: añadir el repositorio a `AppDeps`, instanciarlo en `main.ts` y registrar la ruta.
+5. Cablear en `app.ts`: añadir el repositorio a `AppDeps`, instanciarlo en `main.ts` y registrar la ruta con su `docs`.
 6. Tests: unitarios de los casos de uso con un repo en memoria (`tests/support`) y tests HTTP con supertest sobre `buildApp`.
 
 ## Tests

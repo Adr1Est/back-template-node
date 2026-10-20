@@ -4,18 +4,18 @@ import type { LoginUser } from '../../application/login-user'
 import type { RefreshSession } from '../../application/refresh-session'
 import type { RegisterUser } from '../../application/register-user'
 
-const registerSchema = z.object({
+export const registerSchema = z.object({
   email: z.email(),
   name: z.string().min(1).max(100),
   password: z.string().min(8).max(128),
 })
 
-const loginSchema = z.object({
+export const loginSchema = z.object({
   email: z.email(),
   password: z.string().min(1),
 })
 
-const refreshSchema = z.object({
+export const refreshSchema = z.object({
   refreshToken: z.string().min(1),
 })
 

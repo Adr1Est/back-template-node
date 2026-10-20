@@ -9,6 +9,8 @@ const envSchema = z.object({
     .string()
     .default('*')
     .transform((value) => (value === '*' ? value : value.split(',').map((o) => o.trim()))),
+  // Swagger UI en /docs. Sin definir: activo salvo en producción (lo decide main.ts)
+  API_DOCS: z.stringbool().optional(),
   DATABASE_URL: z.string().min(1),
   JWT_ACCESS_SECRET: z.string().min(32),
   JWT_REFRESH_SECRET: z.string().min(32),

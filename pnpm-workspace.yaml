@@ -1,4 +1,6 @@
 allowBuilds:
   '@prisma/engines': true
+  # Telemetría de swagger-ui-dist: no hace falta para que funcione
+  '@scarf/scarf': false
   esbuild: true
   prisma: true

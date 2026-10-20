@@ -12,6 +12,7 @@ const prisma = createPrismaClient(env.DATABASE_URL)
 const app = buildApp({
   logger,
   corsOrigin: env.CORS_ORIGIN,
+  apiDocs: env.API_DOCS ?? env.NODE_ENV !== 'production',
   userRepository: new PrismaUserRepository(prisma),
   passwordHasher: new Argon2PasswordHasher(),
   tokenService: new JoseTokenService({

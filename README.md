@@ -25,4 +25,8 @@ pnpm dev
 | POST   | `/auth/refresh`  | —                   |
 | GET    | `/users/me`      | Bearer access token |
 
+## Documentación de la API
+
+Swagger UI en [`/docs`](http://localhost:3000/docs) y el documento OpenAPI 3.1 en `/docs/openapi.json`. Está activo por defecto salvo con `NODE_ENV=production`. Para forzarlo, usa `API_DOCS=true|false`.
+
 La arquitectura, las convenciones y los pasos para añadir un módulo están en [CLAUDE.md](CLAUDE.md).
